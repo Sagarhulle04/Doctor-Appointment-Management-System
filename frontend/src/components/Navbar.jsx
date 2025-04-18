@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navigate = useNavigate();
-
   const [showUser, setShowUser] = useState(false);
   const [token, setToken] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const navigate = useNavigate();
 
   const login = () => {
     setToken(true);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-white  text-blue-700 shadow-md">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-lg" : "bg-white"
+      }`}
+    >
       <div className="max-w-[80%] mx-auto flex justify-between items-center py-4">
         {/* Logo */}
         <div className="flex items-center">

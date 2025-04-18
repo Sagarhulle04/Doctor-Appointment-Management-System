@@ -29,7 +29,7 @@ const Login = () => {
     setTimeout(() => {
       if (formData.email && formData.password) {
         // Successful login
-        navigate("/my-profile");
+        navigate("/");
       } else {
         setError("Please fill in all fields");
       }

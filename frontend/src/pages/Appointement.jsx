@@ -159,7 +159,7 @@ const Appointment = () => {
                 <h1 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">
                   {doctorInfo.name}
                 </h1>
-                <p className="text-1xl px-3 py-1 rounded-full bg-blue-700 text-white font-medium">
+                <p className="text-1xl px-3 py-1 cursor-pointer rounded-full bg-blue-700 text-white font-medium">
                   v
                 </p>
               </div>

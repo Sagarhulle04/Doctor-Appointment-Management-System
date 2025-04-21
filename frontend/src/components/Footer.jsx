@@ -40,7 +40,7 @@ export const Footer = () => {
             <h2 className="font-semibold mb-5 text-gray-800">Get in touch</h2>
             <div className="text-sm space-y-2">
               <p>+91-8010560740</p>
-              <p>sagarhulle.nbnscoe.comp@gmail.com</p>
+              <p>sagarhulle.com</p>
             </div>
           </div>
         </div>

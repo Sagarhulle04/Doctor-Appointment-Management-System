@@ -2,6 +2,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import cloudinary from "../config/cloudinary.js";
 import Doctor from "../models/doctorModel.js";
+import jwt from "jsonwebtoken";
 
 const addDoctor = async (req, res) => {
   try {
@@ -31,7 +32,9 @@ const addDoctor = async (req, res) => {
       !address ||
       !imageFile
     ) {
-      return res.status(400).json({ success: false, message: "Missing details" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing details" });
     }
 
     if (!validator.isEmail(email)) {
@@ -79,16 +82,48 @@ const addDoctor = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Doctor added successfully",
-      doctor: newDoctor
+      doctor: newDoctor,
     });
   } catch (error) {
     console.error("Error adding doctor:", error);
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
       error: "Internal server error",
-      message: error.message 
+      message: error.message,
     });
   }
 };
 
-export { addDoctor };
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
+    }
+
+    if (
+      email == process.env.ADMIN_EMAIL &&
+      password == process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid credentials",
+      });
+    }
+  } catch (error) {
+    console.error("Error in admin login:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error",
+      message: error.message,
+    });
+  }
+};
+
+export { addDoctor, adminLogin };

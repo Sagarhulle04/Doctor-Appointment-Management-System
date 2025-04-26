@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { AdminContext } from "../context/AdminContext";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [state, setState] = useState("Admin");
@@ -19,18 +21,23 @@ const Login = () => {
           password,
         });
         if (data.success) {
-          console.log("Token:", data.token); 
-          setAToken(data.token); 
+          console.log("Token:", data.token);
+          localStorage.setItem("aToken", data.token);
+          setAToken(data.token);
+          toast.success("Login successful!");
         } else {
-          console.log("Login failed:", data.message);
+          toast.error(data.message || " Invalid Credentials");
         }
       } else if (state === "Doctor") {
         console.log("Doctor login logic not implemented yet.");
       }
     } catch (error) {
-      console.error(
-        "Error during login:",
-        error.response?.data || error.message
+      // console.error(
+      //   "Error during login:",
+      //   error.response?.data || error.message
+      // );
+      toast.error(
+        error.response?.data?.message || "An error occurred during login"
       );
     }
   };
@@ -83,7 +90,7 @@ const Login = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
+            className="w-full cursor-pointer bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300"
           >
             Login
           </button>

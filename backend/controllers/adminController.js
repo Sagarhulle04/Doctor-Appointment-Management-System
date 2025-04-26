@@ -1,6 +1,6 @@
 import validator from "validator";
 import bcrypt from "bcrypt";
-import cloudinary from "../config/cloudinry.js";
+import cloudinary from "../config/cloudinary.js";
 import Doctor from "../models/doctorModel.js";
 import jwt from "jsonwebtoken";
 
@@ -56,7 +56,6 @@ const addDoctor = async (req, res) => {
 
     // Upload image to Cloudinary
     const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
-      folder: "doctors",
       resource_type: "image",
     });
 

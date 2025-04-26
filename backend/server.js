@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import connectDB from "./config/database.js";
-import connectCloudinary from "./config/cloudinry.js";
+import cloudinary from "./config/cloudinary.js";
 import adminRouter from "./routes/adminRoute.js";
 
 // SECRET ENV
@@ -16,7 +16,7 @@ app.use(cors());
 
 // Config file Configuration
 connectDB();
-connectCloudinary;
+cloudinary;
 
 // Routes
 app.use("/api/admin", adminRouter);

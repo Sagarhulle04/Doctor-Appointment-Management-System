@@ -131,4 +131,9 @@ const adminLogin = async (req, res) => {
   }
 };
 
-export { addDoctor, adminLogin };
+// API TO GET ALL DOCTOR
+const allDoctor = async (req, res) => {
+  const doctors = await Doctor.find({}).select("-password");
+  res.json({ success: true, doctors });
+};
+export { addDoctor, adminLogin, allDoctor };
